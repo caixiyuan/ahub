@@ -19,6 +19,12 @@ Or install it yourself as:
 
 ## Usage
 
+By default, this gem will use the answer hub default connection credentials (answerhub/answerhub).  You can override defaults by setting content in [a .env file like the example](https://github.com/abelmartin/ahub/blob/master/.env_example) and reference it like this for example:
+
+```bash
+AHUB_ENV_FILE=~/workspace/.ahub_env irb
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

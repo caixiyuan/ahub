@@ -4,11 +4,15 @@ module Ahub
     def headers(username:'answerhub', password:'answerhub')
       encoded = "Basic #{::Base64.strict_encode64("#{username}:#{password}")}"
 
-      headers  = {
+      {
         'Authorization' => encoded,
         'Accept' => "application/json",
         'Content-type' => "application/json",
       }
+    end
+
+    def admin_headers
+      headers(username: Ahub::ADMIN_USER, password: Ahub::ADMIN_PASS)
     end
   end
 end
