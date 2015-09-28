@@ -1,6 +1,5 @@
 require 'rest_client'
 require 'pry-byebug'
-require 'csv'
 require 'humanize'
 require 'ahub/modules/api_helpers'
 
