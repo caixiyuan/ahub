@@ -31,7 +31,6 @@ module Ahub
       ::CSV.open(path, 'w', ) do |csv|
         (0..count).each do |n|
           csv << [
-            '',
             "question",
             "##{n}: #{title}",
             "##{n}: #{body}",
