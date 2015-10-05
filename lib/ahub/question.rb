@@ -1,6 +1,3 @@
-require 'rest_client'
-require 'ahub/modules/api_helpers'
-
 module Ahub
   class Question
     extend Ahub::APIHelpers

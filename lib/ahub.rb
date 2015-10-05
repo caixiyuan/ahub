@@ -1,10 +1,11 @@
-require "ahub/version"
-require "ahub/user"
-require "ahub/question"
-require "ahub/answer"
-require "ahub/topic"
-require 'csv'
 require 'dotenv'
+require 'rest_client'
+require 'ahub/modules/api_helpers'
+require 'ahub/version'
+require 'ahub/user'
+require 'ahub/question'
+require 'ahub/answer'
+require 'ahub/topic'
 
 module Ahub
   #Load the .env file from the default location...
@@ -17,8 +18,4 @@ module Ahub
   DEFAULT_PASSWORD = ENV['AHUB_DEFAULT_PASSWORD'] || 'password'
   ADMIN_USER = ENV['AHUB_ADMIN_USER'] || 'answerhub'
   ADMIN_PASS = ENV['AHUB_ADMIN_PASS'] || 'answerhub'
-
-  def self.fire
-    "Nailed it!"
-  end
 end
