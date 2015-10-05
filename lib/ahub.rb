@@ -2,6 +2,7 @@ require "ahub/version"
 require "ahub/user"
 require "ahub/question"
 require "ahub/answer"
+require "ahub/topic"
 require 'csv'
 require 'dotenv'
 

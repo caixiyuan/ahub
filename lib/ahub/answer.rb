@@ -1,5 +1,4 @@
 require 'rest_client'
-require 'pry-byebug'
 require 'ahub/modules/api_helpers'
 
 module Ahub
