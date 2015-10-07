@@ -14,5 +14,15 @@ module Ahub
     def admin_headers
       headers(username: Ahub::ADMIN_USER, password: Ahub::ADMIN_PASS)
     end
+
+    def find
+    end
+
+    private
+
+    def base_url
+      class_name = name.gsub(/Ahub::/, '').downcase
+      "#{Ahub::DOMAIN}/services/v2/#{class_name}"
+    end
   end
 end

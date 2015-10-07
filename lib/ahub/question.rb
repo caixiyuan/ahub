@@ -22,29 +22,5 @@ module Ahub
     rescue => e
       {error: e.message}
     end
-
-    def self.create_csv(title:, body:, topics:, user_id:, count:20, path:)
-      ::CSV.open(path, 'w', ) do |csv|
-        (0..count).each do |n|
-          csv << [
-            "question",
-            "##{n}: #{title}",
-            "##{n}: #{body}",
-            0,
-            topics,
-            1443470000000,
-            '',
-            '',
-            user_id
-          ]
-        end
-      end
-    end
-
-    private
-
-    def self.base_url
-      "#{Ahub::DOMAIN}/services/v2/question"
-    end
   end
 end
