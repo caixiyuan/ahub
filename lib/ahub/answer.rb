@@ -2,6 +2,9 @@ module Ahub
   class Answer
     extend Ahub::APIHelpers
 
+    def initialize(attrs)
+    end
+
     def self.create(question_id:, body:, username:, password:)
       data = {body: body}
 

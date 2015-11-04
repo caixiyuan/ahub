@@ -1,5 +1,8 @@
 module Ahub
-  class Topic
+  class Space
     extend Ahub::APIHelpers
+
+    def initialize(attrs)
+    end
   end
 end

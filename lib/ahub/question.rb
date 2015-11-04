@@ -2,15 +2,7 @@ module Ahub
   class Question
     extend Ahub::APIHelpers
 
-    def self.find(id=nil)
-      url = base_url
-      url +="/#{id}" if id
-      url +='.json'
-
-      OpenStruct.new(JSON.parse(RestClient.get(url, admin_headers), symbolize_names:true))
-    rescue => e
-      {error: e.message}
-    end
+    attr_accessor :id, :title, :body, :body_as_html, :author, :answerCount, :errors
 
     def self.create(title:, body:, topics:, username:, password:)
       url = "#{base_url}.json"
@@ -21,6 +13,20 @@ module Ahub
       {error: nil, newQuestionURL: response.headers[:location]}
     rescue => e
       {error: e.message}
+    end
+
+    def initialize(attrs)
+      @id = attrs[:id]
+      @title = attrs[:title]
+      @body = attrs[:body]
+      @body_as_html = attrs[:bodyAsHTML]
+      @topics = attrs[:topics]
+      @answer_ids = attrs[:answers]
+      @answerCount = attrs[:answerCount]
+    end
+
+    def url
+      "#{self.class.base_url}/#{id}.json" if id
     end
   end
 end

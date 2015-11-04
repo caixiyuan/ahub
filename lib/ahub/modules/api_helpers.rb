@@ -1,6 +1,7 @@
 module Ahub
   module APIHelpers
     require 'base64'
+
     def headers(username:'answerhub', password:'answerhub')
       encoded = "Basic #{::Base64.strict_encode64("#{username}:#{password}")}"
 
@@ -15,10 +16,15 @@ module Ahub
       headers(username: Ahub::ADMIN_USER, password: Ahub::ADMIN_PASS)
     end
 
-    def find
-    end
+    def find(id=nil)
+      url = base_url
+      url +="/#{id}" if id
+      url +='.json'
 
-    private
+      new JSON.parse(RestClient.get(url, admin_headers), symbolize_names:true)
+    rescue => e
+      new {errors: e.message}
+    end
 
     def base_url
       class_name = name.gsub(/Ahub::/, '').downcase

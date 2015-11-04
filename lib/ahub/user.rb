@@ -2,6 +2,9 @@ module Ahub
   class User
     extend Ahub::APIHelpers
 
+    def initialize(attrs)
+    end
+
     def self.find(id=nil)
       url = "#{Ahub::DOMAIN}/services/v2/user"
       url += "/#{id}" if id
