@@ -23,7 +23,7 @@ module Ahub
 
       new JSON.parse(RestClient.get(url, admin_headers), symbolize_names:true)
     rescue => e
-      new {errors: e.message}
+      new({errors: e.message})
     end
 
     def base_url
