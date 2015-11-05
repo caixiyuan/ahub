@@ -16,15 +16,18 @@ module Ahub
       headers(username: Ahub::ADMIN_USER, password: Ahub::ADMIN_PASS)
     end
 
-    def find(id=nil)
-      url = base_url
-      url +="/#{id}" if id
-      url +='.json'
+    def find(id)
+      url = "#{base_url}/#{id}.json"
 
       new JSON.parse(RestClient.get(url, admin_headers), symbolize_names:true)
     rescue => e
-      new({errors: e.message})
+      new({error: e.message})
     end
+
+    # def find_all(params: nil, page: 1)
+    #   url = "#{base_url}.json?page=#{page}"
+    #   JSON.parse(RestClient.get(url, admin_headers), symbolize_names:true)
+    # end
 
     def base_url
       class_name = name.gsub(/Ahub::/, '').downcase
