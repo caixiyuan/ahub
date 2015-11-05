@@ -10,7 +10,8 @@ module Ahub
       @error = attrs[:error]
 
       @body = attrs[:body]
-      @author = Ahub::User.new(attrs[:author])
+      @body = attrs[:bodyAsHTML]
+      # @author = Ahub::User.new(attrs[:author]) # this is an incomplete user object.
     end
 
     def user
