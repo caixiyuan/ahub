@@ -36,5 +36,9 @@ module Ahub
       class_name = name.gsub(/Ahub::/, '').downcase
       "#{Ahub::DOMAIN}/services/v2/#{class_name}"
     end
+
+    def object_id_from_response(response)
+      response.headers[:location].match(/(?<id>\d*)\.json/)[:id].to_i
+    end
   end
 end

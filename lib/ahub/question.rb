@@ -15,8 +15,7 @@ module Ahub
 
       response = RestClient.post(url, payload.to_json, user_headers)
 
-      question_id = response.headers[:location].match(/(?<id>\d*)\.json/)[:id]
-      find(question_id)
+      find(object_id_from_response(response))
     rescue => e
       new({error: e.message})
     end

@@ -6,6 +6,9 @@ module Ahub
     attr_accessor :body, :author
 
     def initialize(attrs)
+      @id = attrs[:id]
+      @error = attrs[:error]
+
       @body = attrs[:body]
       @author = Ahub::User.new(attrs[:author])
     end
