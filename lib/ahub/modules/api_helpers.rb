@@ -28,7 +28,7 @@ module Ahub
       url = "#{base_url}.json?page=#{page}&pageSize=#{pageSize}"
 
       if params
-        params.each{|k,v| url << "&#{k}=#{v}"}
+        params.each{|k,v| url << "&#{k}=#{URI.encode(v)}"}
       end
 
       JSON.parse(RestClient.get(url, admin_headers), symbolize_names:true)[:list].map do |node|
