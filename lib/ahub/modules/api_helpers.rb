@@ -24,10 +24,13 @@ module Ahub
       new({error: e.message})
     end
 
-    # def find_all(params: nil, page: 1)
-    #   url = "#{base_url}.json?page=#{page}"
-    #   JSON.parse(RestClient.get(url, admin_headers), symbolize_names:true)
-    # end
+    def find_all(params: nil, page: 1, pageSize: 30)
+      url = "#{base_url}.json?page=#{page}&pageSize=#{pageSize}"
+
+      JSON.parse(RestClient.get(url, admin_headers), symbolize_names:true)[:list].map do |node|
+        new(node)
+      end
+    end
 
     def base_url
       class_name = name.gsub(/Ahub::/, '').downcase

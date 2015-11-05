@@ -6,6 +6,8 @@ require 'ahub/user'
 require 'ahub/question'
 require 'ahub/answer'
 require 'ahub/topic'
+require 'ahub/space'
+require 'ahub/group'
 
 module Ahub
   #Load the .env file from the default location...
