@@ -9,13 +9,18 @@ module Ahub
       @name = attrs[:name]
     end
 
-    def assign_user(user_id)
+    def add(user_id)
+      add_user(user_id)
+    end
+
+    def add_user(user_id)
       raise Exception("No Group Id") unless id
 
-      move_url = "#{self.class.base_url}/#{id}/move.json?users=#{user_id}"
+      move_url = "#{self.class.base_url}/#{id}/add.json?users=#{user_id}"
       RestClient.put("#{url}", self.class.admin_headers)
+      true
     rescue => e
-      @error = e.message
+      false
     end
   end
 end

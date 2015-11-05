@@ -18,6 +18,10 @@ module Ahub
       new({error: e.message})
     end
 
+    def self.find_by_username(username)
+      matches = find_all(params: {q: username})
+      matches.find{|user| user.username.downcase.strip == username.downcase.strip}
+    end
 
     attr_reader :username, :realname, :avatar_url, :post_count, :follow_count, :follower_count, :active, :suspended, :deactivated
     def initialize(attrs)
