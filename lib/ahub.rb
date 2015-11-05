@@ -1,6 +1,7 @@
 require 'dotenv'
 require 'rest_client'
 require 'ahub/modules/api_helpers'
+require 'ahub/modules/class_helpers'
 require 'ahub/version'
 require 'ahub/user'
 require 'ahub/question'

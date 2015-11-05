@@ -1,9 +1,10 @@
 module Ahub
   class Question
     extend Ahub::APIHelpers
+    include Ahub::ClassHelpers
 
     attr_accessor :title, :body, :body_as_html, :author, :answerCount
-    attr_reader :id, :error, :space_id
+    attr_reader :space_id
 
     def self.create(title:, body:, topics:, space_id: nil, username:, password:)
       url = "#{base_url}.json"

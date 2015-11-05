@@ -1,6 +1,7 @@
 module Ahub
   class User
     extend Ahub::APIHelpers
+    include Ahub::ClassHelpers
 
     def initialize(attrs)
     end

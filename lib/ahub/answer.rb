@@ -1,8 +1,17 @@
 module Ahub
   class Answer
     extend Ahub::APIHelpers
+    include Ahub::ClassHelpers
+
+    attr_accessor :body, :author
 
     def initialize(attrs)
+      @body = attrs[:body]
+      @author = Ahub::User.new(attrs[:author])
+    end
+
+    def user
+      @author
     end
 
     def self.create(question_id:, body:, username:, password:)
@@ -12,14 +21,9 @@ module Ahub
 
       auth_headers = headers(username: username, password: password)
 
-      OpenStruct.new(
-        JSON.parse(
-          RestClient.post(url, data.to_json, auth_headers),
-          symbolize_names: true
-        )
-      )
+      new JSON.parse(RestClient.post(url, data.to_json, auth_headers), symbolize_names: true)
     rescue => e
-      {error: e.message}
+      new({error: e.message})
     end
 
   end
