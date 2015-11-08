@@ -21,7 +21,7 @@ module Ahub
 
       new JSON.parse(RestClient.get(url, admin_headers), symbolize_names:true)
     rescue => e
-      new({error: e.message})
+      nil
     end
 
     def find_all(params: nil, page: 1, pageSize: 30)
@@ -34,6 +34,8 @@ module Ahub
       JSON.parse(RestClient.get(url, admin_headers), symbolize_names:true)[:list].map do |node|
         new(node)
       end
+    rescue => e
+      []
     end
 
     def base_url
