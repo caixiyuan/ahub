@@ -9,6 +9,12 @@ module Ahub
 end
 
 describe Ahub::APIHelpers do
+  let(:server_response) do
+    {page: 1, pageSize: 15, pageCount: 5, list: [single_response]}
+  end
+
+  let(:single_response){ {id: 8, title: 'foo'} }
+
   describe '::find' do
     it 'swallows RestClient::ResourceNotFound & returns nil if nothing comes back from the sever' do
       allow(RestClient).to receive(:get).with(
@@ -30,20 +36,12 @@ describe Ahub::APIHelpers do
     end
 
     context 'when server has a useful response' do
-      let(:server_response) do
-        {page: 1, pageSize: 15, pageCount: 5, list: [single_response]}.to_json
-      end
-
-      let(:single_response){ {id: 8, title: 'foo'} }
-
-      before do
+      it 'makes a call to index route for all questions and returns an array of objects.' do
         allow(RestClient).to receive(:get).with(
           "#{Ahub::APIHelpersTester.base_url}/8.json",
           Ahub::APIHelpersTester.admin_headers
         ).and_return(single_response.to_json)
-      end
 
-      it 'makes a call to index route for all questions and returns an array of objects.' do
         expect(Ahub::APIHelpersTester.find(8)).to be_a(Ahub::APIHelpersTester)
       end
     end
@@ -51,7 +49,14 @@ describe Ahub::APIHelpers do
 
   describe '::find_all' do
     context 'when args are present' do
-      xit 'makes a call to index route with arguments'
+      it 'makes a call to index route with arguments' do
+        allow(RestClient).to receive(:get).with(
+          "#{Ahub::APIHelpersTester.base_url}.json?page=1&pageSize=30&foo=bar%20quat",
+          Ahub::APIHelpersTester.admin_headers
+        ).and_return(server_response.to_json)
+
+        expect(Ahub::APIHelpersTester.find_all(params: {foo:'bar quat'})).to all(be_a(Ahub::APIHelpersTester))
+      end
     end
   end
 

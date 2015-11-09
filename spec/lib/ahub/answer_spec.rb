@@ -36,8 +36,7 @@ describe Ahub::Answer do
   end
 
   describe '::create' do
-    # let(:create_url){ "#{Ahub::DOMAIN}/services/v2/question/1/answer.json" }
-    let(:create_url){ "http://localhost:8888/services/v2/question/1/answer.json" }
+    let(:create_url){ "#{Ahub::DOMAIN}/services/v2/question/1/answer.json" }
 
     it 'make expected call to the expected URL' do
       expect(RestClient).to receive(:post).with(

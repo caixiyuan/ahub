@@ -9,7 +9,6 @@ module Ahub
       @id = attrs[:id]
       @body = attrs[:body]
       @body_as_html = attrs[:bodyAsHTML]
-      # binding.pry
       @author = Ahub::User.new(attrs[:author])
     end
 
