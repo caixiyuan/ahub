@@ -1,6 +1,10 @@
 # Ahub
 A gem to interact with the [Answer Hub API](docs.answerhubapiv2.apiary.io)
 
+[![Build Status](https://travis-ci.org/abelmartin/ahub.svg?branch=master)](https://travis-ci.org/abelmartin/ahub)
+
+[![Build Status](https://travis-ci.org/abelmartin/ahub.svg?branch=v0.1.13)](https://travis-ci.org/abelmartin/ahub)
+
 ## Installation
 
 Add this line to your application's Gemfile:
