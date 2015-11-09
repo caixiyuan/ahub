@@ -23,11 +23,11 @@ module Ahub
       matches.find{|user| user.username.downcase.strip == username.downcase.strip}
     end
 
-    attr_reader :username, :realname, :avatar_url, :post_count, :follow_count, :follower_count, :active, :suspended, :deactivated
-    def initialize(attrs)
-      @id = attrs[:id]
-      @error = attrs[:error]
+    attr_reader :username, :realname, :avatar_url,
+      :post_count, :follow_count, :follower_count,
+      :active, :suspended, :deactivated
 
+    def initialize(attrs)
       @username = attrs[:username]
       @realname = attrs[:realname]
       @avatar_url = attrs[:avatar]
@@ -37,6 +37,11 @@ module Ahub
       @active = attrs[:active]
       @suspended = attrs[:suspended]
       @deactivated  =attrs[:deactivated]
+      @complete = attrs[:complete]
+    end
+
+    def is_complete?
+      !!@complete
     end
   end
 end

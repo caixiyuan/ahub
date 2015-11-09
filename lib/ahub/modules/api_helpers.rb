@@ -20,7 +20,7 @@ module Ahub
       url = "#{base_url}/#{id}.json"
 
       new JSON.parse(RestClient.get(url, admin_headers), symbolize_names:true)
-    rescue => e
+    rescue RestClient::ResourceNotFound => e
       nil
     end
 
@@ -34,8 +34,6 @@ module Ahub
       JSON.parse(RestClient.get(url, admin_headers), symbolize_names:true)[:list].map do |node|
         new(node)
       end
-    rescue => e
-      []
     end
 
     def base_url

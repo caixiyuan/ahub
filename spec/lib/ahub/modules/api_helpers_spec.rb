@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Ahub
-  class Tester
+  class APIHelpersTester
     extend Ahub::APIHelpers
     def initialize(params)
     end
@@ -10,16 +10,23 @@ end
 
 describe Ahub::APIHelpers do
   describe '::find' do
-    it 'returns an empty array if nothing comes back from the sever' do
-      expect(RestClient).to receive(:get).with(
-        "#{Ahub::Tester.base_url}/1.json",
-        Ahub::Tester.admin_headers
-      ).and_raise(Exception.new('barf'))
+    it 'swallows RestClient::ResourceNotFound & returns nil if nothing comes back from the sever' do
+      allow(RestClient).to receive(:get).with(
+        "#{Ahub::APIHelpersTester.base_url}/1.json",
+        Ahub::APIHelpersTester.admin_headers
+      ).and_raise(RestClient::ResourceNotFound)
 
-      tester = nil
+      tester = Ahub::APIHelpersTester.find(1)
+      expect(tester).to be_nil
+    end
 
-      expect{tester = Ahub::Tester.find(1)}.to raise_error
-      expect(tester.error).to eq('barf')
+    it 'allows other exceptions to be raised' do
+      allow(RestClient).to receive(:get).with(
+        "#{Ahub::APIHelpersTester.base_url}/k.json",
+        Ahub::APIHelpersTester.admin_headers
+      ).and_raise(RestClient::InternalServerError)
+
+      expect{ Ahub::APIHelpersTester.find('k') }.to raise_error(RestClient::InternalServerError)
     end
 
     context 'when server has a useful response' do
@@ -30,17 +37,19 @@ describe Ahub::APIHelpers do
       let(:single_response){ {id: 8, title: 'foo'} }
 
       before do
-        expect(RestClient).to receive(:get).with(
-          "#{Ahub::Tester.base_url}/8.json",
-          Ahub::Tester.admin_headers
+        allow(RestClient).to receive(:get).with(
+          "#{Ahub::APIHelpersTester.base_url}/8.json",
+          Ahub::APIHelpersTester.admin_headers
         ).and_return(single_response.to_json)
       end
 
       it 'makes a call to index route for all questions and returns an array of objects.' do
-        expect(Ahub::Tester.find(8)).to be_a(Ahub::Tester)
+        expect(Ahub::APIHelpersTester.find(8)).to be_a(Ahub::APIHelpersTester)
       end
     end
+  end
 
+  describe '::find_all' do
     context 'when args are present' do
       xit 'makes a call to index route with arguments'
     end
@@ -49,7 +58,7 @@ describe Ahub::APIHelpers do
   describe '::base_url' do
     #for simplicity, I'm simply sending this private method call.
     it 'returns a class derrived from the class' do
-      expect(Ahub::Tester.send(:base_url)).to eq("#{Ahub::DOMAIN}/services/v2/tester")
+      expect(Ahub::APIHelpersTester.send(:base_url)).to eq("#{Ahub::DOMAIN}/services/v2/apihelperstester")
     end
   end
 end

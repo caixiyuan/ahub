@@ -21,9 +21,6 @@ module Ahub
     end
 
     def initialize(attrs)
-      @id = attrs[:id]
-      @error = attrs[:error]
-
       @answer_ids = attrs[:answers]
       @answerCount = attrs[:answerCount]
       @body = attrs[:body]

@@ -3,15 +3,14 @@ module Ahub
     extend Ahub::APIHelpers
     include Ahub::ClassHelpers
 
-    attr_accessor :body, :author
+    attr_reader :body, :body_as_html, :author
 
     def initialize(attrs)
       @id = attrs[:id]
-      @error = attrs[:error]
-
       @body = attrs[:body]
-      @body = attrs[:bodyAsHTML]
-      # @author = Ahub::User.new(attrs[:author]) # this is an incomplete user object.
+      @body_as_html = attrs[:bodyAsHTML]
+      # binding.pry
+      @author = Ahub::User.new(attrs[:author])
     end
 
     def user
@@ -26,9 +25,6 @@ module Ahub
       auth_headers = headers(username: username, password: password)
 
       new JSON.parse(RestClient.post(url, data.to_json, auth_headers), symbolize_names: true)
-    rescue => e
-      new({error: e.message})
     end
-
   end
 end

@@ -9,7 +9,7 @@ module Ahub
     end
 
     def self.included(klass)
-      attr_reader :id, :error
+      attr_reader :id
     end
   end
 end
