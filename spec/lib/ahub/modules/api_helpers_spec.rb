@@ -5,6 +5,13 @@ module Ahub
     extend Ahub::APIHelpers
     def initialize(params)
     end
+
+    def create()
+      url = "#{base_url}.json"
+
+      response = RestClient.post(url, {}.to_json, admin_headers)
+      find(object_id_from_response(response))
+    end
   end
 end
 
@@ -61,9 +68,16 @@ describe Ahub::APIHelpers do
   end
 
   describe '::base_url' do
-    #for simplicity, I'm simply sending this private method call.
     it 'returns a class derrived from the class' do
-      expect(Ahub::APIHelpersTester.send(:base_url)).to eq("#{Ahub::DOMAIN}/services/v2/apihelperstester")
+      expect(Ahub::APIHelpersTester.base_url).to eq("#{Ahub::DOMAIN}/services/v2/apihelperstester")
+    end
+  end
+
+  describe '::object_id_from_response' do
+    it 'returns an integer for the id of the new record' do
+      base_url = Ahub::APIHelpersTester.base_url
+      response = double(headers: {location: "#{base_url}/123.json"})
+      expect(Ahub::APIHelpersTester.object_id_from_response(response)).to eq(123)
     end
   end
 end
