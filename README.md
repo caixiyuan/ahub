@@ -4,7 +4,7 @@ A gem to interact with the [Answer Hub API](docs.answerhubapiv2.apiary.io)
 Master
 [![Build Status](https://travis-ci.org/abelmartin/ahub.svg?branch=master)](https://travis-ci.org/abelmartin/ahub)
 
-Gem Version 0.1.13
+Gem v0.1.13
 [![Build Status](https://travis-ci.org/abelmartin/ahub.svg?branch=v0.1.13)](https://github.com/abelmartin/ahub/tree/v0.1.13)
 
 ## Installation
