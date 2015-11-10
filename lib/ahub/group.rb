@@ -5,6 +5,7 @@ module Ahub
 
     attr_reader :name
     def initialize(attrs)
+      @id =  attrs[:id]
       @name = attrs[:name]
     end
 

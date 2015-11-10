@@ -25,6 +25,7 @@ module Ahub
       :active, :suspended, :deactivated
 
     def initialize(attrs)
+      @id =  attrs[:id]
       @username = attrs[:username]
       @realname = attrs[:realname]
       @avatar_url = attrs[:avatar]

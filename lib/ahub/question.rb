@@ -18,6 +18,7 @@ module Ahub
     attr_reader :space_id, :answerCount
 
     def initialize(attrs)
+      @id =  attrs[:id]
       @answer_ids = attrs[:answers]
       @answerCount = attrs[:answerCount]
       @body = attrs[:body]
