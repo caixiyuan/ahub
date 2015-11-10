@@ -34,6 +34,11 @@ describe Ahub::Question do
   end
 
   describe '::create' do
+    it 'calls ::make_post_call' do
+      response = {test:true}
+      expect(Ahub::Question).to receive(:make_post_call).and_return(response)
+      expect(Ahub::Question.create(title:'t', body:'b', topics:'', username:'u', password:'p')).to eq(response)
+    end
   end
 
   describe '#move' do

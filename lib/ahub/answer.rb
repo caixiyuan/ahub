@@ -4,13 +4,11 @@ module Ahub
     include Ahub::ClassHelpers
 
     def self.create(question_id:, body:, username:, password:)
-      data = {body: body}
+      payload = {body: body}
 
       url = "#{Ahub::DOMAIN}/services/v2/question/#{question_id}/answer.json"
 
-      auth_headers = headers(username: username, password: password)
-
-      new JSON.parse(RestClient.post(url, data.to_json, auth_headers), symbolize_names: true)
+      make_post_call(url, payload.to_json, headers(username: username, password: password))
     end
 
     attr_reader :body, :body_as_html, :author

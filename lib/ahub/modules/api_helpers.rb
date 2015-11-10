@@ -44,5 +44,12 @@ module Ahub
     def object_id_from_response(response)
       response.headers[:location].match(/(?<id>\d*)\.json/)[:id].to_i
     end
+
+    private
+
+    def make_post_call(url:, payload:, headers:)
+      response = RestClient.post(url, payload.to_json, admin_headers)
+      find(object_id_from_response(response))
+    end
   end
 end

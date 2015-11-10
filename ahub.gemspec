@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["abel.martin@gmail.com"]
 
   spec.summary       = "A gem to interact with the Answer Hub API"
-  spec.description   = "Answer Hub is a great product.  This gem allows you to easily interact with it's API"
+  spec.description   = "Answer Hub is a great product.  This gem allows you to easily interact with its API"
   spec.homepage      = "https://github.com/abelmartin/ahub"
   spec.license       = "MIT"
 

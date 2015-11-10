@@ -13,9 +13,7 @@ module Ahub
 
       user_headers = headers(username:username, password:password)
 
-      response = RestClient.post(url, payload.to_json, user_headers)
-
-      find(object_id_from_response(response))
+      make_post_call(url: url, payload: payload.to_json, headers: user_headers)
     end
 
     def initialize(attrs)

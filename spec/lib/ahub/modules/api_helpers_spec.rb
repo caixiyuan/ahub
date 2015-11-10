@@ -6,11 +6,10 @@ module Ahub
     def initialize(params)
     end
 
-    def create()
+    def self.create()
       url = "#{base_url}.json"
 
-      response = RestClient.post(url, {}.to_json, admin_headers)
-      find(object_id_from_response(response))
+      make_post_call(url: url, payload: {}.to_json, headers: admin_headers)
     end
   end
 end
@@ -78,6 +77,30 @@ describe Ahub::APIHelpers do
       base_url = Ahub::APIHelpersTester.base_url
       response = double(headers: {location: "#{base_url}/123.json"})
       expect(Ahub::APIHelpersTester.object_id_from_response(response)).to eq(123)
+    end
+  end
+
+  describe '::create' do
+    let(:create_url){ "#{Ahub::APIHelpersTester.base_url}.json" }
+    let(:server_response){ double(headers: {location: "#{Ahub::APIHelpersTester.base_url}/456.json"}) }
+
+    it 'returns an Ahub::APIHelpersTester instance if creation was successful' do
+      expect(RestClient).to receive(:post).with(
+        create_url, anything, Ahub::APIHelpersTester.admin_headers
+      ).and_return(server_response)
+
+      expect(Ahub::APIHelpersTester).to receive(:find).and_return(Ahub::APIHelpersTester.new({}))
+
+      answer = Ahub::APIHelpersTester.create()
+      expect(answer).to be_a(Ahub::APIHelpersTester)
+    end
+
+    it 'returns an error if a failure occurs' do
+      allow(RestClient).to receive(:post).with(
+        create_url, anything, Ahub::APIHelpersTester.admin_headers
+      ).and_raise(RestClient::InternalServerError)
+
+      expect{Ahub::APIHelpersTester.create()}.to raise_error(RestClient::InternalServerError)
     end
   end
 end
