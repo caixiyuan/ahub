@@ -3,18 +3,19 @@ module Ahub
     extend Ahub::APIHelpers
     include Ahub::ClassHelpers
 
-    attr_accessor :title, :body, :body_as_html, :author
-    attr_reader :space_id, :answerCount
-
     def self.create(title:, body:, topics:, space_id: nil, username:, password:)
       url = "#{base_url}.json"
+
       payload = {title: title, body: body, topics: topics}
       payload[:spaceId] = space_id if space_id
 
       user_headers = headers(username:username, password:password)
 
-      make_post_call(url: url, payload: payload.to_json, headers: user_headers)
+      make_post_call(url: url, payload: payload, headers: user_headers)
     end
+
+    attr_accessor :title, :body, :body_as_html, :author
+    attr_reader :space_id, :answerCount
 
     def initialize(attrs)
       @answer_ids = attrs[:answers]

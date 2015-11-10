@@ -12,7 +12,7 @@ module Ahub
         password: password || Ahub::DEFAULT_PASSWORD,
       }
 
-      response = RestClient.post(url, payload.to_json, admin_headers)
+      response = RestClient.post(url, payload, admin_headers)
       find(object_id_from_response(response))
     end
 

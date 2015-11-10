@@ -48,7 +48,7 @@ module Ahub
     private
 
     def make_post_call(url:, payload:, headers:)
-      response = RestClient.post(url, payload.to_json, admin_headers)
+      response = RestClient.post(url, payload.to_json, headers)
       find(object_id_from_response(response))
     end
   end
