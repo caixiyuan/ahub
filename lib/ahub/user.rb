@@ -12,8 +12,7 @@ module Ahub
         password: password || Ahub::DEFAULT_PASSWORD,
       }
 
-      response = RestClient.post(url, payload, admin_headers)
-      find(object_id_from_response(response))
+      make_post_call(url: url, payload: payload, headers: admin_headers)
     end
 
     def self.find_by_username(username)
