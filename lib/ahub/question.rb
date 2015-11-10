@@ -3,8 +3,8 @@ module Ahub
     extend Ahub::APIHelpers
     include Ahub::ClassHelpers
 
-    attr_accessor :title, :body, :body_as_html, :author, :answerCount
-    attr_reader :space_id
+    attr_accessor :title, :body, :body_as_html, :author
+    attr_reader :space_id, :answerCount
 
     def self.create(title:, body:, topics:, space_id: nil, username:, password:)
       url = "#{base_url}.json"
@@ -16,8 +16,6 @@ module Ahub
       response = RestClient.post(url, payload.to_json, user_headers)
 
       find(object_id_from_response(response))
-    rescue => e
-      new({error: e.message})
     end
 
     def initialize(attrs)
@@ -35,8 +33,6 @@ module Ahub
 
       move_url = "#{self.class.base_url}/#{id}/move.json?space=#{space_id}"
       RestClient.put("#{url}", self.class.admin_headers)
-    rescue => e
-      @error = e.message
     end
 
     def url

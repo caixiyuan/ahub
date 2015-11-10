@@ -14,8 +14,6 @@ module Ahub
 
       response = RestClient.post(url, payload.to_json, admin_headers)
       find(object_id_from_response(response))
-    rescue => e
-      new({error: e.message})
     end
 
     def self.find_by_username(username)

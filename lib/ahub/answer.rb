@@ -3,6 +3,16 @@ module Ahub
     extend Ahub::APIHelpers
     include Ahub::ClassHelpers
 
+    def self.create(question_id:, body:, username:, password:)
+      data = {body: body}
+
+      url = "#{Ahub::DOMAIN}/services/v2/question/#{question_id}/answer.json"
+
+      auth_headers = headers(username: username, password: password)
+
+      new JSON.parse(RestClient.post(url, data.to_json, auth_headers), symbolize_names: true)
+    end
+
     attr_reader :body, :body_as_html, :author
 
     def initialize(attrs)
@@ -14,16 +24,6 @@ module Ahub
 
     def user
       @author
-    end
-
-    def self.create(question_id:, body:, username:, password:)
-      data = {body: body}
-
-      url = "#{Ahub::DOMAIN}/services/v2/question/#{question_id}/answer.json"
-
-      auth_headers = headers(username: username, password: password)
-
-      new JSON.parse(RestClient.post(url, data.to_json, auth_headers), symbolize_names: true)
     end
   end
 end
