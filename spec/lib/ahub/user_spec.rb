@@ -71,5 +71,10 @@ describe Ahub::User do
   end
 
   describe '#is_complete?' do
+    it 'is tested'
+  end
+
+  describe '#answers' do
+    it 'is tested'
   end
 end

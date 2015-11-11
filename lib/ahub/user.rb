@@ -44,8 +44,8 @@ module Ahub
 
     def answers
       unless @answers
-        response = self.class.get_resource("#{self.class.base_url}/#{id}/answer.json")
-        @answers = response[:list].map{ |answer| new(answer) }
+        response = self.class.get_resource(url: "#{self.class.base_url}/#{id}/answer.json", headers: self.class.admin_headers)
+        @answers = response[:list].map{ |answer| Ahub::Answer.new(answer) }
       end
 
       @answers
