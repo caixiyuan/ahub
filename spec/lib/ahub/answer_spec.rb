@@ -42,7 +42,7 @@ describe Ahub::Answer do
   describe '::create' do
     it 'calls ::make_post_call' do
       response = {test:true}
-      expect(Ahub::Answer).to receive(:make_post_call).and_return(response)
+      expect(Ahub::Answer).to receive(:make_post_call).with(hash_including(:url, :payload, :headers)).and_return(response)
       expect(Ahub::Answer.create(question_id:1, body:'b', username:'u', password:'p')).to eq(response)
     end
   end
