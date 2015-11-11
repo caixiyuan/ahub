@@ -12,7 +12,7 @@ module Ahub
         password: password || Ahub::DEFAULT_PASSWORD,
       }
 
-      make_post_call(url: url, payload: payload, headers: admin_headers)
+      create_resource(url: url, payload: payload, headers: admin_headers)
     end
 
     def self.find_by_username(username)
@@ -22,7 +22,7 @@ module Ahub
 
     attr_reader :username, :realname, :avatar_url,
       :post_count, :follow_count, :follower_count,
-      :active, :suspended, :deactivated
+      :active, :suspended, :deactivated, :answers
 
     def initialize(attrs)
       @id =  attrs[:id]
@@ -40,6 +40,15 @@ module Ahub
 
     def is_complete?
       !!@complete
+    end
+
+    def answers
+      unless @answers
+        response = self.class.get_resource("#{self.class.base_url}/#{id}/answer.json")
+        @answers = response[:list].map{ |answer| new(answer) }
+      end
+
+      @answers
     end
   end
 end

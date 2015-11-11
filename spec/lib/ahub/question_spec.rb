@@ -34,9 +34,9 @@ describe Ahub::Question do
   end
 
   describe '::create' do
-    it 'calls ::make_post_call' do
+    it 'calls ::create_resource' do
       response = {test:true}
-      expect(Ahub::Question).to receive(:make_post_call).with(hash_including(:url, :payload, :headers)).and_return(response)
+      expect(Ahub::Question).to receive(:create_resource).with(hash_including(:url, :payload, :headers)).and_return(response)
       expect(Ahub::Question.create(title:'t', body:'b', topics:'', username:'u', password:'p')).to eq(response)
     end
   end

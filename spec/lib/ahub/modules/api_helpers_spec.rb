@@ -9,7 +9,7 @@ module Ahub
     def self.create()
       url = "#{base_url}.json"
 
-      make_post_call(url: url, payload: {}.to_json, headers: admin_headers)
+      create_resource(url: url, payload: {}.to_json, headers: admin_headers)
     end
   end
 end

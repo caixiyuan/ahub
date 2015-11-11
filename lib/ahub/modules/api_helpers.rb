@@ -19,7 +19,7 @@ module Ahub
     def find(id)
       url = "#{base_url}/#{id}.json"
 
-      new JSON.parse(RestClient.get(url, admin_headers), symbolize_names:true)
+      new get_resource(url: url, headers:admin_headers)
     rescue RestClient::ResourceNotFound => e
       nil
     end
@@ -31,7 +31,7 @@ module Ahub
         params.each{|k,v| url << "&#{k}=#{URI.encode(v)}"}
       end
 
-      JSON.parse(RestClient.get(url, admin_headers), symbolize_names:true)[:list].map do |node|
+      get_resource(url: url, headers: admin_headers)[:list].map do |node|
         new(node)
       end
     end
@@ -45,11 +45,16 @@ module Ahub
       response.headers[:location].match(/(?<id>\d*)\.json/)[:id].to_i
     end
 
+    def get_resource(url:, headers:)
+      JSON.parse(RestClient.get(url, admin_headers), symbolize_names:true)
+    end
+
     private
 
-    def make_post_call(url:, payload:, headers:)
+    def create_resource(url:, payload:, headers:)
       response = RestClient.post(url, payload.to_json, headers)
       find(object_id_from_response(response))
     end
+
   end
 end

@@ -43,19 +43,19 @@ describe Ahub::User do
     let(:response){ {test:true} }
     let(:url){ Ahub::User.base_url+'.json' }
 
-    it 'calls ::make_post_call' do
-      expect(Ahub::User).to receive(:make_post_call).with(hash_including(:url, :payload, :headers)).and_return(response)
+    it 'calls ::create_resource' do
+      expect(Ahub::User).to receive(:create_resource).with(hash_including(:url, :payload, :headers)).and_return(response)
       expect(Ahub::User.create(username: 'u', email:'u@u.com')).to eq(response)
     end
 
     it 'uses default password if one is not passed in' do
-      expect(Ahub::User).to receive(:make_post_call).
+      expect(Ahub::User).to receive(:create_resource).
         with(url:url, payload:{email: 'u@u.com', username: 'u', password: Ahub::DEFAULT_PASSWORD}, headers:Ahub::User.admin_headers)
       Ahub::User.create(username: 'u', email:'u@u.com')
     end
 
     it 'uses provided password if one is present' do
-      expect(Ahub::User).to receive(:make_post_call).
+      expect(Ahub::User).to receive(:create_resource).
         with(url:url, payload:{email: 'u@u.com', username: 'u', password: 'p'}, headers:Ahub::User.admin_headers)
       Ahub::User.create(username: 'u', password:'p', email:'u@u.com')
     end

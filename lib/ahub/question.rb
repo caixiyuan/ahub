@@ -11,7 +11,7 @@ module Ahub
 
       user_headers = headers(username:username, password:password)
 
-      make_post_call(url: url, payload: payload, headers: user_headers)
+      create_resource(url: url, payload: payload, headers: user_headers)
     end
 
     attr_accessor :title, :body, :body_as_html, :author
