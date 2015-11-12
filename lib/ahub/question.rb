@@ -16,6 +16,10 @@ module Ahub
 
     attr_accessor :title, :body, :body_as_html
 
+    def user
+      @author
+    end
+
     def move(space_id:)
       raise Exception("No Question Id") unless id
 
