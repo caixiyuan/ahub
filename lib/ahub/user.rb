@@ -29,6 +29,15 @@ module Ahub
       !!@complete
     end
 
+    def questions
+      unless @questions
+        response = self.class.get_resource(url: "#{self.class.base_url}/#{id}/question.json", headers: self.class.admin_headers)
+        @questions = response[:list].map{ |question| Ahub::Question.new(question) }
+      end
+
+      @questions
+    end
+
     def answers
       unless @answers
         response = self.class.get_resource(url: "#{self.class.base_url}/#{id}/answer.json", headers: self.class.admin_headers)

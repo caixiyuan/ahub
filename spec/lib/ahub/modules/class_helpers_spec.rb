@@ -14,10 +14,8 @@ end
 
 describe Ahub::ClassHelpers do
   let(:tester){ Ahub::APIClassTester.new({id: 100}) }
-  describe 'attrs' do
-    it 'has a read only id property' do
-      expect(tester.id).to be(100)
-    end
+  describe '#initialize' do
+    it 'requires new tests'
   end
 
   describe '#update' do

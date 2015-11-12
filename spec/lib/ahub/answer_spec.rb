@@ -33,12 +33,6 @@ describe Ahub::Answer do
     end
   end
 
-  describe '#author' do
-    it 'returns false for #is_complete?' do
-      expect(answer.author).not_to be_is_complete
-    end
-  end
-
   describe '::create' do
     it 'calls ::create_resource' do
       response = {test:true}

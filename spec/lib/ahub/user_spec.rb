@@ -70,11 +70,11 @@ describe Ahub::User do
     end
   end
 
-  describe '#is_complete?' do
-    it 'is tested'
+  describe '#questions' do
+    it 'needs tests'
   end
 
   describe '#answers' do
-    it 'is tested'
+    it 'needs tests'
   end
 end
