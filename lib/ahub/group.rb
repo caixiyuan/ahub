@@ -3,12 +3,6 @@ module Ahub
     extend Ahub::APIHelpers
     include Ahub::ClassHelpers
 
-    attr_reader :name
-    def initialize(attrs)
-      @id =  attrs[:id]
-      @name = attrs[:name]
-    end
-
     def add(user_id)
       add_user(user_id)
     end

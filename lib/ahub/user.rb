@@ -20,22 +20,9 @@ module Ahub
       matches.find{|user| user.username.downcase.strip == username.downcase.strip}
     end
 
-    attr_reader :username, :realname, :avatar_url,
-      :post_count, :follow_count, :follower_count,
-      :active, :suspended, :deactivated, :answers
-
     def initialize(attrs)
-      @id =  attrs[:id]
-      @username = attrs[:username]
-      @realname = attrs[:realname]
-      @avatar_url = attrs[:avatar]
-      @post_count = attrs[:postCount]
-      @follow_count = attrs[:followCount]
-      @follower_count = attrs[:followerCount]
-      @active = attrs[:active]
-      @suspended = attrs[:suspended]
-      @deactivated  =attrs[:deactivated]
-      @complete = attrs[:complete]
+      super
+      @groups = attrs[:groups].map{|group| Ahub::Group.new(group)} if attrs[:groups]
     end
 
     def is_complete?

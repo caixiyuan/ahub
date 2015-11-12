@@ -1,5 +1,6 @@
 require 'dotenv'
 require 'rest_client'
+require 'active_support/inflector'
 require 'ahub/modules/api_helpers'
 require 'ahub/modules/class_helpers'
 require 'ahub/version'

@@ -14,19 +14,7 @@ module Ahub
       create_resource(url: url, payload: payload, headers: user_headers)
     end
 
-    attr_accessor :title, :body, :body_as_html, :author
-    attr_reader :space_id, :answerCount
-
-    def initialize(attrs)
-      @id =  attrs[:id]
-      @answer_ids = attrs[:answers]
-      @answerCount = attrs[:answerCount]
-      @body = attrs[:body]
-      @body_as_html = attrs[:bodyAsHTML]
-      @space_id = attrs[:primaryContainerId]
-      @title = attrs[:title]
-      @topics = attrs[:topics]
-    end
+    attr_accessor :title, :body, :body_as_html
 
     def move(space_id:)
       raise Exception("No Question Id") unless id

@@ -9,12 +9,8 @@ module Ahub
       create_resource(url: url, payload: {body: body}, headers: headers(username: username, password: password))
     end
 
-    attr_reader :body, :body_as_html, :author
-
     def initialize(attrs)
-      @id = attrs[:id]
-      @body = attrs[:body]
-      @body_as_html = attrs[:bodyAsHTML]
+      super(attrs)
       @author = Ahub::User.new(attrs[:author])
     end
 

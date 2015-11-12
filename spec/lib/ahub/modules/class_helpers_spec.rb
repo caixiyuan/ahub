@@ -3,10 +3,6 @@ require "spec_helper"
 module Ahub
   class APIClassTester
     include Ahub::ClassHelpers
-    def initialize(params)
-      @id = params[:id]
-    end
-
     def create()
       url = "#{base_url}.json"
 
