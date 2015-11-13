@@ -1,6 +1,5 @@
 module Ahub
   class Topic
-    extend Ahub::APIHelpers
-    include Ahub::ClassHelpers
+    include Ahub::APIResource
   end
 end

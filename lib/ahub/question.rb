@@ -1,7 +1,6 @@
 module Ahub
   class Question
-    extend Ahub::APIHelpers
-    include Ahub::ClassHelpers
+    include Ahub::APIResource
 
     def self.create(title:, body:, topics:, space_id: nil, username:, password:)
       url = "#{base_url}.json"

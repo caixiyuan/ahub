@@ -1,7 +1,6 @@
 module Ahub
   class Answer
-    extend Ahub::APIHelpers
-    include Ahub::ClassHelpers
+    include Ahub::APIResource
 
     def self.create(question_id:, body:, username:, password:)
       url = "#{Ahub::DOMAIN}/services/v2/question/#{question_id}/answer.json"
@@ -10,7 +9,7 @@ module Ahub
     end
 
     def initialize(attrs)
-      super(attrs)
+      super
       @author = Ahub::User.new(attrs[:author])
     end
 

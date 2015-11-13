@@ -1,7 +1,6 @@
 module Ahub
   class User
-    extend Ahub::APIHelpers
-    include Ahub::ClassHelpers
+    include Ahub::APIResource
 
     def self.create(username:, email:, password:nil)
       url = "#{base_url}.json"
@@ -25,14 +24,10 @@ module Ahub
       @groups = attrs[:groups].map{|group| Ahub::Group.new(group)} if attrs[:groups]
     end
 
-    def is_complete?
-      !!@complete
-    end
-
     def questions
       unless @questions
-        response = self.class.get_resource(url: "#{self.class.base_url}/#{id}/question.json", headers: self.class.admin_headers)
-        @questions = response[:list].map{ |question| Ahub::Question.new(question) }
+        url = "#{self.class.base_url}/#{id}/question.json"
+        @questions = self.class.get_resources(url: url, headers: self.class.admin_headers, klass: Ahub::Question)
       end
 
       @questions
@@ -40,8 +35,8 @@ module Ahub
 
     def answers
       unless @answers
-        response = self.class.get_resource(url: "#{self.class.base_url}/#{id}/answer.json", headers: self.class.admin_headers)
-        @answers = response[:list].map{ |answer| Ahub::Answer.new(answer) }
+        url = "#{self.class.base_url}/#{id}/answer.json"
+        @answers = self.class.get_resources(url: url, headers: self.class.admin_headers, klass: Ahub::Answer)
       end
 
       @answers

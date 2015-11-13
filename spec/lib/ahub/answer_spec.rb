@@ -6,11 +6,7 @@ describe Ahub::Answer do
       id: 123,
       body: 'test',
       bodyAsHTML: '<p>test</p>',
-      author: {
-        id: 194,
-        username: "answerhub",
-        reputation: 100,
-      }
+      author: {id: 194, username: "answerhub", reputation: 100}
     })
   end
 
