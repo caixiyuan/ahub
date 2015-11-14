@@ -1,7 +1,6 @@
 module Ahub
   class Group
-    extend Ahub::APIHelpers
-    include Ahub::ClassHelpers
+    include Ahub::APIResource
 
     def add(user_id)
       add_user(user_id)
