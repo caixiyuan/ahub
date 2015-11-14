@@ -11,6 +11,10 @@ describe Ahub::Answer do
   end
 
   describe '#initialize' do
+    it 'is an Ahub::APIResource' do
+      expect(answer).to be_a(Ahub::APIResource)
+    end
+
     it 'has expected attributes' do
       expect(answer.id).to eq(123)
       expect(answer.body).to eq('test')

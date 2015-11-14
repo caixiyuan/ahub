@@ -28,7 +28,7 @@ module Ahub
     end
 
     class_methods do
-      def headers(username:'answerhub', password:'answerhub')
+      def headers(username:, password:)
         encoded = "Basic #{::Base64.strict_encode64("#{username}:#{password}")}"
 
         {
@@ -70,11 +70,11 @@ module Ahub
       end
 
       def get_resource(url:, headers:)
-        JSON.parse(RestClient.get(url, admin_headers), symbolize_names:true)
+        JSON.parse(RestClient.get(url, headers), symbolize_names:true)
       end
 
       def get_resources(url:, headers:, klass:)
-        JSON.parse(RestClient.get(url, admin_headers), symbolize_names:true)[:list].map do |node|
+        JSON.parse(RestClient.get(url, headers), symbolize_names:true)[:list].map do |node|
           klass.new(node)
         end
       end
