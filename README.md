@@ -6,7 +6,9 @@ Master
 
 ## Warning :warning:
 
-This gem is under development & can change at any point. In addition, it's best used for management of your data. Please wait for 1.0 before rolling this into your production stack. :sweat_smile:
+Ahub follows [Semantic Version](http://semver.org/).  That said, this gem is under active development & can pivot as I see fit :smiling_imp:. At the moment, it's best used for management tasks & exploration of the data in your environment.
+
+In otherwords, please wait until I remove this warning message before rolling it into your production stack. :sweat_smile:
 
 ## Installation
 
