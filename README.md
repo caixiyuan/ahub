@@ -4,6 +4,10 @@ A gem to interact with the [Answer Hub API](docs.answerhubapiv2.apiary.io)
 Master
 [![Build Status](https://travis-ci.org/abelmartin/ahub.svg?branch=master)](https://travis-ci.org/abelmartin/ahub)
 
+## Warning :warning:
+
+This gem is under development & can change at any point. In addition, it's best used for management of your data. Please wait for 1.0 before rolling this into your production stack. :sweat_smile:
+
 ## Installation
 
 Add this line to your application's Gemfile:
