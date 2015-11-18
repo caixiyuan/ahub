@@ -6,7 +6,7 @@ Master
 
 ## Warning :warning:
 
-Ahub follows [Semantic Version](http://semver.org/).  That said, this gem is under active development & can pivot as I see fit :smiling_imp:. At the moment, it's best used for management tasks & exploration of the data in your environment.
+Ahub follows [Semantic Version](http://semver.org/).  Though gem will pivot as I see fit :smiling_imp:, I'll ensure to bump the major version for breaking changes. At the moment, however, Ahub is best used for data management tasks (like importing [questions](http://docs.answerhubapiv2.apiary.io/#reference/question)/[answers](http://docs.answerhubapiv2.apiary.io/#reference/answer)/[topics](http://docs.answerhubapiv2.apiary.io/#reference/topic)/[users](http://docs.answerhubapiv2.apiary.io/#reference/user)) & exploration of the data ([groups](http://docs.answerhubapiv2.apiary.io/#reference/group)/[spaces](http://docs.answerhubapiv2.apiary.io/#reference/space)) in your environment.
 
 In otherwords, please wait until I remove this warning message before rolling it into your production stack. :sweat_smile:
 
