@@ -3,32 +3,20 @@ require 'spec_helper'
 require 'active_support/core_ext/object/try'
 
 describe Ahub::Question do
-  let(:question_1_json) do
-    NodeFactory.create_question_json
-  end
-
   let(:answer_1_json) do
-    NodeFactory.create_answer_json
+    NodeFactory.generate_answer_attributes
   end
 
   let(:question_1) do
-    Ahub::Question.new(question_1_json)
-  end
-
-  let(:question_2_json) do
-    NodeFactory.create_question_json
+    NodeFactory.create_question
   end
 
   let(:question_2) do
-    Ahub::Question.new(question_2_json)
-  end
-
-  let(:question_3_json) do
-    NodeFactory.create_question_json({author_id: 3, username: 'new_user'})
+    NodeFactory.create_question
   end
 
   let(:question_3) do
-    Ahub::Question.new(question_3_json)
+    NodeFactory.create_question({author_id: 3, username: 'new_user'})
   end
 
   let(:multi_response) do
@@ -41,7 +29,7 @@ describe Ahub::Question do
       listCount: 1,
       totalCount: 1,
       sorts: ["active", "newest", "hottest"],
-      list: [question_1_json, question_2_json, question_3_json]
+      list: [question_1.attributes, question_2.attributes, question_3.attributes]
     }
   end
 
@@ -85,8 +73,9 @@ describe Ahub::Question do
         question_1, question_2, question_3
       ])
     end
+
     it 'returns single question that whose title matches the request' do
-      expect(Ahub::Question.find_by_title(question_3_json[:title])).to eq(question_3)
+      expect(Ahub::Question.find_by_title(question_3.title)).to eq(question_3)
     end
 
     it 'returns nil if no titles match the request' do
@@ -99,7 +88,7 @@ describe Ahub::Question do
       answer = Ahub::Answer.new(answer_1_json)
       allow(Ahub::Answer).to receive(:find).and_return(answer)
 
-      question = Ahub::Question.new(question_1_json.merge(answers:[345]))
+      question = Ahub::Question.new(question_1.attributes.merge(answers:[345]))
 
       expect(question.fetched_answers).to eq([answer])
     end

@@ -3,7 +3,7 @@ require 'active_support/core_ext/object/try'
 
 class NodeFactory
   @id = 0
-  def self.create_question_json(options={})
+  def self.generate_question_attributes(options={})
     node = create_json(options)
     node.merge({
       type: "question",
@@ -13,12 +13,20 @@ class NodeFactory
     })
   end
 
-  def self.create_answer_json(options={})
+  def self.create_question(options={})
+    Ahub::Question.new(generate_question_attributes)
+  end
+
+  def self.generate_answer_attributes(options={})
     node = create_json(options)
     node.merge({
       type: "answer",
       body: options[:body] || "Answer #{@id} body",
     })
+  end
+
+  def self.create_answer(options={})
+    Ahub::Answer.new(generate_answer_attributes)
   end
 
   private
