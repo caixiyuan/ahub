@@ -17,7 +17,6 @@ module Ahub
   Dotenv.load ENV['AHUB_ENV_FILE'] if ENV['AHUB_ENV_FILE']
 
   DOMAIN = ENV['AHUB_DOMIAN'] || 'http://localhost:8888'
-  DEFAULT_PASSWORD = ENV['AHUB_DEFAULT_PASSWORD'] || 'password'
   ADMIN_USER = ENV['AHUB_ADMIN_USER'] || 'answerhub'
   ADMIN_PASS = ENV['AHUB_ADMIN_PASS'] || 'answerhub'
 end

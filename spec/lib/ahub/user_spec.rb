@@ -45,13 +45,7 @@ describe Ahub::User do
 
     it 'calls ::create_resource' do
       expect(Ahub::User).to receive(:create_resource).with(hash_including(:url, :payload, :headers)).and_return(response)
-      expect(Ahub::User.create(username: 'u', email:'u@u.com')).to eq(response)
-    end
-
-    it 'uses default password if one is not passed in' do
-      expect(Ahub::User).to receive(:create_resource).
-        with(url:url, payload:{email: 'u@u.com', username: 'u', password: Ahub::DEFAULT_PASSWORD}, headers:Ahub::User.admin_headers)
-      Ahub::User.create(username: 'u', email:'u@u.com')
+      expect(Ahub::User.create(username: 'u', email:'u@u.com', password: 'p')).to eq(response)
     end
 
     it 'uses provided password if one is present' do

@@ -2,14 +2,10 @@ module Ahub
   class User
     include Ahub::APIResource
 
-    def self.create(username:, email:, password:nil)
+    def self.create(username:, email:, password:)
       url = "#{base_url}.json"
 
-      payload = {
-        email: email,
-        username: username,
-        password: password || Ahub::DEFAULT_PASSWORD,
-      }
+      payload = {email: email, username: username, password: password}
 
       create_resource(url: url, payload: payload, headers: admin_headers)
     end
