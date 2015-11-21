@@ -41,7 +41,7 @@ module Ahub
     end
 
     def html_url
-      "#{self.class.base_url}/#{id}/#{slug}.html" if id
+      "#{Ahub::DOMAIN}/questions/#{id}/#{slug}.html" if id
     end
 
     def json_url

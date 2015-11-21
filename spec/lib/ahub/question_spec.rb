@@ -147,7 +147,7 @@ describe Ahub::Question do
   describe '#html_url' do
     it 'returns expected json url if the id exists' do
       question = Ahub::Question.new({id:123, slug:'foo-bar-baz'})
-      expect(question.html_url).to eq("#{Ahub::Question.base_url}/123/foo-bar-baz.html")
+      expect(question.html_url).to eq("#{Ahub::DOMAIN}/questions/123/foo-bar-baz.html")
     end
 
     it 'returns expected json url if the id exists' do
