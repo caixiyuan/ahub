@@ -102,6 +102,29 @@ describe Ahub::APIResource do
         expect{Ahub::APIResourceTester.create()}.to raise_error(RestClient::InternalServerError)
       end
     end
+
+    describe '::get_resources' do
+      it 'returns an array of instances of a class' do
+        expect(RestClient).to receive(:get).
+          with(
+            "http://foo.json",
+            Ahub::APIResourceTester.admin_headers,
+          ).and_return({list:[
+            {id:1}, {id:2}, {id:3}
+          ]}.to_json)
+
+        resources = Ahub::APIResourceTester.get_resources(
+          url: 'http://foo.json',
+          headers: Ahub::APIResourceTester.admin_headers,
+          klass: Ahub::APIResourceTester
+        )
+
+        (0..2).each do |index|
+          expect(resources[index]).to be_a(Ahub::APIResourceTester)
+          expect(resources[index].id).to be(index+1)
+        end
+      end
+    end
   end
 
   describe 'instance methdods' do

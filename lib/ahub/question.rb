@@ -13,25 +13,42 @@ module Ahub
       create_resource(url: url, payload: payload, headers: user_headers)
     end
 
+    def self.is_question(query:)
+      get_resource(url: "#{base_url}/isQuestion.json?q=#{URI.encode(query)}", headers: admin_headers)[:result]
+    end
+
+    def self.find_all_by_text(query:)
+      get_resources(url: "#{base_url}.json?q=#{URI.encode(query)}", headers: admin_headers, klass: Ahub::Question)
+    end
+
+    def self.find_by_title(query:)
+      find_all_by_text(query: query).find{|question| question.title == query}
+    end
+
     attr_accessor :title, :body, :body_as_html
+
+    def initialize(attrs)
+      super
+      @author = Ahub::User.new(attrs[:author]) if attrs[:author]
+      if attrs[:answers]
+        @answers = attrs[:answers].map{|answer_id| Ahub::Answer.find(answer_id)}
+      end
+    end
 
     def user
       @author
     end
 
-    def move(space_id:)
-      raise Exception("No Question Id") unless id
-
-      move_url = "#{self.class.base_url}/#{id}/move.json?space=#{space_id}"
-      RestClient.put("#{url}", self.class.admin_headers)
+    def html_url
+      "#{self.class.base_url}/#{id}/#{slug}.html" if id
     end
 
-    def url
+    def json_url
       "#{self.class.base_url}/#{id}.json" if id
     end
 
     def to_s
-      url
+      html_url
     end
   end
 end
