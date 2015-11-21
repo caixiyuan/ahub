@@ -21,8 +21,8 @@ module Ahub
       get_resources(url: "#{base_url}.json?q=#{URI.encode(query)}", headers: admin_headers, klass: Ahub::Question)
     end
 
-    def self.find_by_title(query:)
-      find_all_by_text(query: query).find{|question| question.title == query}
+    def self.find_by_title(title)
+      find_all_by_text(query: title).find{|question| question.title == title}
     end
 
     attr_accessor :title, :body, :body_as_html

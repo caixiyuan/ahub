@@ -125,11 +125,11 @@ describe Ahub::Question do
       ])
     end
     it 'returns single question that whose title matches the request' do
-      expect(Ahub::Question.find_by_title(query: question_3_json[:title])).to eq(question_3)
+      expect(Ahub::Question.find_by_title(question_3_json[:title])).to eq(question_3)
     end
 
     it 'returns nil if no titles match the request' do
-      expect(Ahub::Question.find_by_title(query: 'xxx')).to be_nil
+      expect(Ahub::Question.find_by_title('xxx')).to be_nil
     end
   end
 
