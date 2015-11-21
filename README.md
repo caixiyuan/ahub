@@ -6,7 +6,7 @@ Master
 
 ## Warning :warning:
 
-Ahub follows [Semantic Version](http://semver.org/).  Though gem will pivot as I see fit :smiling_imp:, I'll ensure to bump the major version for breaking changes. At the moment, however, Ahub is best used for data management tasks (like importing [questions](http://docs.answerhubapiv2.apiary.io/#reference/question)/[answers](http://docs.answerhubapiv2.apiary.io/#reference/answer)/[topics](http://docs.answerhubapiv2.apiary.io/#reference/topic)/[users](http://docs.answerhubapiv2.apiary.io/#reference/user)) & exploration of the data ([groups](http://docs.answerhubapiv2.apiary.io/#reference/group)/[spaces](http://docs.answerhubapiv2.apiary.io/#reference/space)) in your environment.
+Ahub will strictly follow [Semantic Version](http://semver.org/)...AFTER version 1.0.0.  Until then, the gem will pivot as I see fit :smiling_imp:.  At the moment, however, Ahub is best used for data management tasks (like importing [questions](http://docs.answerhubapiv2.apiary.io/#reference/question)/[answers](http://docs.answerhubapiv2.apiary.io/#reference/answer)/[topics](http://docs.answerhubapiv2.apiary.io/#reference/topic)/[users](http://docs.answerhubapiv2.apiary.io/#reference/user)) & exploration of the data ([groups](http://docs.answerhubapiv2.apiary.io/#reference/group)/[spaces](http://docs.answerhubapiv2.apiary.io/#reference/space)) in your environment.
 
 In otherwords, please wait until I remove this warning message before rolling it into your production stack. :sweat_smile:
 
