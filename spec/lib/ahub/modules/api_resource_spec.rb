@@ -3,11 +3,16 @@ require 'spec_helper'
 module Ahub
   class APIResourceTester
     include Ahub::APIResource
+    attr_writer :bbb
 
     def self.create()
       url = "#{base_url}.json"
 
       create_resource(url: url, payload: {}.to_json, headers: admin_headers)
+    end
+
+    def predefined
+      'original'
     end
   end
 end
@@ -128,9 +133,38 @@ describe Ahub::APIResource do
   end
 
   describe 'instance methdods' do
-    let(:tester){ Ahub::APIResourceTester.new({}) }
+    let(:tester){ Ahub::APIResourceTester.new({id: 789, aaa:1, bbb:2, ccc:3, predefined: 'new'}) }
     describe '#initialize' do
-      it 'requires new tests'
+      it 'transforms any key in the attributes hash into a property on the instance' do
+        expect(tester.id).to be(789)
+        expect(tester.aaa).to be(1)
+        expect(tester.bbb).to be(2)
+        expect(tester.ccc).to be(3)
+      end
+
+      it 'stores attributes hash in attributes property' do
+        expect(tester.attributes).to eq({id: 789, aaa:1, bbb:2, ccc:3, predefined: 'new'})
+      end
+
+      it 'creates read-only properties from attributes hash' do
+        expect(tester.respond_to?(:aaa=)).to be(false)
+      end
+
+      it 'maintains attr_accessor methods' do
+        tester.bbb = 'bbb'
+        expect(tester.bbb).to eq('bbb')
+      end
+
+      context 'when an method with the same name as an attribute exists' do
+        xit 'does not override the existing method' do
+          expect(tester.predefined).to eq('original')
+        end
+
+        xit 'does not create an instance variable' do
+          expect(tester.instance_variable_get('@predefined')).to be_nil
+        end
+      end
+
     end
 
     describe '#update' do

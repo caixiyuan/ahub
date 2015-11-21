@@ -9,6 +9,8 @@ module Ahub
     included do
     end
 
+    attr_reader :attributes
+
     def update
       raise NotImplementedError
     end
@@ -18,7 +20,10 @@ module Ahub
     end
 
     def initialize(attrs)
+      @attributes = attrs
       attrs.each_pair do |k,v|
+        # next if k != :id && self.respond_to?(k)
+
         self.instance_variable_set("@#{k.to_s.underscore}", v)
 
         self.class.send(:define_method, k.to_s.underscore.to_sym) do
