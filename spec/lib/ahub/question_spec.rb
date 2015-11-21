@@ -133,14 +133,14 @@ describe Ahub::Question do
     end
   end
 
-  describe '#answers' do
+  describe '#fetched_answers' do
     it 'returns an array of Ahub::Answer instances' do
       answer = Ahub::Answer.new(answer_1_json)
       allow(Ahub::Answer).to receive(:find).and_return(answer)
 
       question = Ahub::Question.new(question_1_json.merge(answers:[345]))
 
-      expect(question.answers).to eq([answer])
+      expect(question.fetched_answers).to eq([answer])
     end
   end
 

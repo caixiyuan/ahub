@@ -30,9 +30,10 @@ module Ahub
     def initialize(attrs)
       super
       @author = Ahub::User.new(attrs[:author]) if attrs[:author]
-      if attrs[:answers]
-        @answers = attrs[:answers].map{|answer_id| Ahub::Answer.find(answer_id)}
-      end
+    end
+
+    def fetched_answers
+      @fetched_answers || @answers.map{|answer_id| Ahub::Answer.find(answer_id)}
     end
 
     def user
