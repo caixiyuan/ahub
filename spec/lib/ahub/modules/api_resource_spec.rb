@@ -133,7 +133,8 @@ describe Ahub::APIResource do
   end
 
   describe 'instance methdods' do
-    let(:tester){ Ahub::APIResourceTester.new({id: 789, aaa:1, bbb:2, ccc:3, predefined: 'new'}) }
+    let(:attribute_hash){ {id: 789, aaa:1, bbb:2, ccc:3, predefined: 'new' }}
+    let(:tester){ Ahub::APIResourceTester.new(attribute_hash) }
     describe '#initialize' do
       it 'transforms any key in the attributes hash into a property on the instance' do
         expect(tester.id).to be(789)
@@ -143,7 +144,7 @@ describe Ahub::APIResource do
       end
 
       it 'stores attributes hash in attributes property' do
-        expect(tester.attributes).to eq({id: 789, aaa:1, bbb:2, ccc:3, predefined: 'new'})
+        expect(tester.attributes).to eq(attribute_hash)
       end
 
       it 'creates read-only properties from attributes hash' do
@@ -156,11 +157,11 @@ describe Ahub::APIResource do
       end
 
       context 'when an method with the same name as an attribute exists' do
-        xit 'does not override the existing method' do
+        it 'does not override the existing method' do
           expect(tester.predefined).to eq('original')
         end
 
-        xit 'does not create an instance variable' do
+        it 'does not create an instance variable' do
           expect(tester.instance_variable_get('@predefined')).to be_nil
         end
       end
