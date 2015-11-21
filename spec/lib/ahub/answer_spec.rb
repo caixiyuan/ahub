@@ -4,6 +4,7 @@ describe Ahub::Answer do
   let(:answer) do
     Ahub::Answer.new({
       id: 123,
+      type: 'answer',
       body: 'test',
       bodyAsHTML: '<p>test</p>',
       author: {id: 194, username: "answerhub", reputation: 100}

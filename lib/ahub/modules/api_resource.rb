@@ -6,9 +6,6 @@ module Ahub
   module APIResource
     extend ActiveSupport::Concern
 
-    included do
-    end
-
     attr_reader :attributes
 
     def update
@@ -22,11 +19,15 @@ module Ahub
     def initialize(attrs)
       @attributes = attrs
       attrs.each_pair do |k,v|
-        # next if k != :id && self.respond_to?(k)
+        attribute_name = k.to_s.underscore
 
-        self.instance_variable_set("@#{k.to_s.underscore}", v)
+        if instance_variable_get("@#{attribute_name}").nil?
+          instance_variable_set("@#{attribute_name}", v)
+        end
 
-        self.class.send(:define_method, k.to_s.underscore.to_sym) do
+        next if respond_to?(k) && k != :id
+
+        self.class.send(:define_method, attribute_name) do
           instance_variable_get("@#{__method__}")
         end
       end

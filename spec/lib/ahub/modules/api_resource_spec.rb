@@ -11,8 +11,13 @@ module Ahub
       create_resource(url: url, payload: {}.to_json, headers: admin_headers)
     end
 
+    def initialize(attrs)
+      @predefined = 'original ivar'
+      super
+    end
+
     def predefined
-      'original'
+      'original method'
     end
   end
 end
@@ -133,14 +138,17 @@ describe Ahub::APIResource do
   end
 
   describe 'instance methdods' do
-    let(:attribute_hash){ {id: 789, aaa:1, bbb:2, ccc:3, predefined: 'new' }}
+    let(:attribute_hash){ {id: 789, aCamelCasedKEY:1, bbb:2, ccc:3, predefined: 'new' }}
     let(:tester){ Ahub::APIResourceTester.new(attribute_hash) }
     describe '#initialize' do
       it 'transforms any key in the attributes hash into a property on the instance' do
         expect(tester.id).to be(789)
-        expect(tester.aaa).to be(1)
         expect(tester.bbb).to be(2)
         expect(tester.ccc).to be(3)
+      end
+
+      it 'transforms camel cased keys into underscored equivalents' do
+        expect(tester.a_camel_cased_key).to be(1)
       end
 
       it 'stores attributes hash in attributes property' do
@@ -148,7 +156,7 @@ describe Ahub::APIResource do
       end
 
       it 'creates read-only properties from attributes hash' do
-        expect(tester.respond_to?(:aaa=)).to be(false)
+        expect(tester.respond_to?(:ccc=)).to be(false)
       end
 
       it 'maintains attr_accessor methods' do
@@ -158,11 +166,11 @@ describe Ahub::APIResource do
 
       context 'when an method with the same name as an attribute exists' do
         it 'does not override the existing method' do
-          expect(tester.predefined).to eq('original')
+          expect(tester.predefined).to eq('original method')
         end
 
-        it 'does not create an instance variable' do
-          expect(tester.instance_variable_get('@predefined')).to be_nil
+        it 'does not override an instance variable' do
+          expect(tester.instance_variable_get('@predefined')).to eq('original ivar')
         end
       end
 
