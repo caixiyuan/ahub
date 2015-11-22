@@ -16,5 +16,9 @@ module Ahub
     def user
       @author
     end
+
+    def html_url
+      "#{Ahub::DOMAIN}/answers/#{id}/view.html" if id
+    end
   end
 end

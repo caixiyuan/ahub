@@ -34,6 +34,12 @@ describe Ahub::Answer do
     end
   end
 
+  describe '#html_url' do
+    it 'returns expected url' do
+      expect(answer.html_url).to eq("#{Ahub::DOMAIN}/answers/#{answer.id}/view.html")
+    end
+  end
+
   describe '::create' do
     it 'calls ::create_resource' do
       response = {test:true}
