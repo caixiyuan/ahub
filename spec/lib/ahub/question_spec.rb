@@ -20,17 +20,7 @@ describe Ahub::Question do
   end
 
   let(:multi_response) do
-    {
-      name: "",
-      sort: "active",
-      page: 1,
-      pageSize: 15,
-      pageCount: 1,
-      listCount: 1,
-      totalCount: 1,
-      sorts: ["active", "newest", "hottest"],
-      list: [question_1.attributes, question_2.attributes, question_3.attributes]
-    }
+    NodeFactory.generate_multi_question_attributes(3)
   end
 
   describe '::create' do

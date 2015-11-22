@@ -1,43 +1,7 @@
 require 'spec_helper'
 
 describe Ahub::User do
-  let(:single_response) do
-    {
-      id: 7,
-      type: "user",
-      creationDate: 1416502952553,
-      creationDateFormatted: "11/20/2014 12:02 PM",
-      modificationDate: 1447125755940,
-      username: "answerhub",
-      slug: "answerhub",
-      avatar: "https://secure.gravatar.com/avatar/93b9bcd52a21e95be8958cbba2767742?d=identicon&r=PG",
-      active: true,
-      suspended: false,
-      deactivated: false,
-      groups: [{
-        id: "2",
-        creationDate: 1416502952324,
-        creationDateFormatted: "11/20/2014 12:02 PM",
-        modificationDate: 1416502952530,
-        name: "Users"
-      }],
-      extraData: { }
-    }
-  end
-
-  let(:multi_response) do
-    {
-      name: "",
-      sort: "active",
-      page: 1,
-      pageSize: 15,
-      pageCount: 1,
-      listCount: 1,
-      totalCount: 1,
-      sorts: ["active", "newest", "hottest"],
-      list: [single_response]
-    }
-  end
+  let(:user){NodeFactory.create_user}
 
   describe '::create' do
     let(:response){ {test:true} }
@@ -65,10 +29,36 @@ describe Ahub::User do
   end
 
   describe '#questions' do
-    it 'needs tests'
+    let(:questions){[NodeFactory.create_question, NodeFactory.create_question]}
+
+    it 'calls ::get_resources the first time with expected params' do
+      allow(Ahub::User).to receive(:get_resources).and_return(questions)
+      expect(user.questions).to eq(questions)
+    end
+
+    it 'returns memoized questions on the second call' do
+      expect(Ahub::User).to receive(:get_resources).and_return(questions).once
+      user.questions
+      user.questions
+    end
   end
 
   describe '#answers' do
-    it 'needs tests'
+    let(:answers){[NodeFactory.create_answer, NodeFactory.create_answer]}
+
+    before do
+      allow(Ahub::Answer).to receive(:get_resources).and_return(answers)
+    end
+
+    it 'calls ::get_resources the first time with expected params' do
+      allow(Ahub::User).to receive(:get_resources).and_return(answers)
+      expect(user.answers).to eq(answers)
+    end
+
+    it 'returns memoized answers on the second call' do
+      expect(Ahub::User).to receive(:get_resources).and_return(answers).once
+      user.answers
+      user.answers
+    end
   end
 end
