@@ -114,4 +114,21 @@ describe Ahub::Question do
       expect(question.to_s).to eq(question.html_url)
     end
   end
+
+  describe '#find_answers_by_username' do
+    let!(:answers){ [NodeFactory.create_answer, NodeFactory.create_answer] }
+
+    before do
+      allow(question_1).to receive(:fetched_answers).and_return(answers)
+    end
+
+    it 'returns an answer object if the username matches' do
+      username = answers.first.author.username
+      expect(question_1.find_answers_by_username(username)).to eq(answers.first)
+    end
+
+    it 'returns nil if no answer matches' do
+      expect(question_1.find_answers_by_username('no one')).to be_nil
+    end
+  end
 end

@@ -32,6 +32,10 @@ module Ahub
       @author = Ahub::User.new(attrs[:author]) if attrs[:author]
     end
 
+    def find_answers_by_username(username)
+      fetched_answers.find{|answer| answer.author.username == username}
+    end
+
     def fetched_answers
       @fetched_answers || @answers.map{|answer_id| Ahub::Answer.find(answer_id)}
     end
