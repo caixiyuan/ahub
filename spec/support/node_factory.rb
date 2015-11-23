@@ -5,20 +5,19 @@ class NodeFactory
   @id = 0
 
   def self.create_question(options={})
-    Ahub::Question.new(generate_question_attributes)
+    Ahub::Question.new(generate_question_attributes(options))
   end
 
   def self.create_answer(options={})
-    Ahub::Answer.new(generate_answer_attributes)
+    Ahub::Answer.new(generate_answer_attributes(options))
   end
 
   def self.create_user(options={})
-    Ahub::User.new(generate_user_attributes)
+    Ahub::User.new(generate_user_attributes(options))
   end
 
   def self.generate_user_attributes(options={})
     @id += 1
-
     {
       id: @id,
       type: "user",
@@ -40,7 +39,6 @@ class NodeFactory
       }],
       extraData: { }
     }
-
   end
 
   def self.generate_question_attributes(options={})

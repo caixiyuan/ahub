@@ -116,7 +116,7 @@ describe Ahub::Question do
   end
 
   describe '#find_answers_by_username' do
-    let!(:answers){ [NodeFactory.create_answer, NodeFactory.create_answer] }
+    let!(:answers){ [NodeFactory.create_answer(username:'martin'), NodeFactory.create_answer] }
 
     before do
       allow(question_1).to receive(:fetched_answers).and_return(answers)
@@ -124,11 +124,11 @@ describe Ahub::Question do
 
     it 'returns an answer object if the username matches' do
       username = answers.first.author.username
-      expect(question_1.find_answers_by_username(username)).to eq(answers.first)
+      expect(question_1.find_answers_by_username('martin')).to eq([answers.first])
     end
 
     it 'returns nil if no answer matches' do
-      expect(question_1.find_answers_by_username('no one')).to be_nil
+      expect(question_1.find_answers_by_username('no one')).to eq([])
     end
   end
 end

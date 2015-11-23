@@ -33,7 +33,7 @@ module Ahub
     end
 
     def find_answers_by_username(username)
-      fetched_answers.find{|answer| answer.author.username == username}
+      fetched_answers.select{|answer| answer.author.username == username}
     end
 
     def fetched_answers
