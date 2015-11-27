@@ -12,10 +12,6 @@ module Ahub
       raise NotImplementedError
     end
 
-    def destroy
-      raise NotImplementedError
-    end
-
     def initialize(attrs)
       @attributes = attrs
       attrs.each_pair do |k,v|
@@ -80,7 +76,8 @@ module Ahub
       end
 
       def get_resources(url:, headers:, klass:)
-        JSON.parse(RestClient.get(url, headers), symbolize_names:true)[:list].map do |node|
+        response = JSON.parse(RestClient.get(url, headers), symbolize_names:true)
+        response[:list].map do |node|
           klass.new(node)
         end
       end

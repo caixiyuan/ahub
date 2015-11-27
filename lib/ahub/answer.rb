@@ -1,6 +1,7 @@
 module Ahub
   class Answer
     include Ahub::APIResource
+    include Ahub::Deletable
 
     def self.create(question_id:, body:, username:, password:)
       url = "#{Ahub::DOMAIN}/services/v2/question/#{question_id}/answer.json"

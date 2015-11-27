@@ -1,6 +1,7 @@
 require 'dotenv'
 require 'rest_client'
 require 'ahub/modules/api_resource'
+require 'ahub/modules/deletable'
 require 'ahub/version'
 require 'ahub/user'
 require 'ahub/question'
