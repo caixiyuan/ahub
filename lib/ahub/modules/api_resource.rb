@@ -52,8 +52,8 @@ module Ahub
         nil
       end
 
-      def find_all(params: nil, page: 1, pageSize: 30)
-        url = "#{base_url}.json?page=#{page}&pageSize=#{pageSize}"
+      def find_all(params: nil, page: 1, page_size: 50)
+        url = "#{base_url}.json?page=#{page}&pageSize=#{page_size}"
 
         if params
           params.each{|k,v| url << "&#{k}=#{URI.encode(v)}"}

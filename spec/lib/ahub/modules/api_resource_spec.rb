@@ -66,7 +66,7 @@ describe Ahub::APIResource do
       context 'when args are present' do
         it 'makes a call to index route with arguments' do
           allow(RestClient).to receive(:get).with(
-            "#{Ahub::APIResourceTester.base_url}.json?page=1&pageSize=30&foo=bar%20quat",
+            "#{Ahub::APIResourceTester.base_url}.json?page=1&pageSize=50&foo=bar%20quat",
             Ahub::APIResourceTester.admin_headers
           ).and_return(server_response.to_json)
 
