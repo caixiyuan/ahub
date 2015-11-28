@@ -19,7 +19,7 @@ module Ahub
     end
 
     def self.find_all_by_text(query:)
-      get_resources(url: "#{base_url}.json?q=#{URI.encode(query.downcase.strip.gsub('?',''))}", headers: admin_headers, klass: Ahub::Question)
+      get_resources(url: "#{base_url}.json?q=#{URI.encode(query.downcase.strip.delete('?'))}", headers: admin_headers, klass: Ahub::Question)
     end
 
     def self.find_by_title(title)

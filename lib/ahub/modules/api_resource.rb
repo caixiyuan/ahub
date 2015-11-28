@@ -48,7 +48,7 @@ module Ahub
         url = "#{base_url}/#{id}.json"
 
         new get_resource(url: url, headers:admin_headers)
-      rescue RestClient::ResourceNotFound => e
+      rescue RestClient::ResourceNotFound
         nil
       end
 

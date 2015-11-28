@@ -25,7 +25,7 @@ module Ahub
         begin
           response = RestClient.put(url, {}.to_json, headers)
           response.code == 200
-        rescue Exception => e
+        rescue StandardError
           false
         end
       end
