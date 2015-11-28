@@ -53,7 +53,7 @@ describe Ahub::Question do
           klass: Ahub::Question
         ).and_return(multi_response)
 
-      Ahub::Question.find_all_by_text(query: 'test title')
+      Ahub::Question.find_all_by_text(query: '  Test Title  ')
     end
   end
 
