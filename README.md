@@ -1,8 +1,11 @@
 # Ahub
 A gem to interact with the [Answer Hub API](docs.answerhubapiv2.apiary.io)
 
-Master
+[![Gem Version][version-badge]][rubygems]
+
 [![Build Status](https://travis-ci.org/abelmartin/ahub.svg?branch=master)](https://travis-ci.org/abelmartin/ahub)
+
+[![Code Climate](https://codeclimate.com/github/abelmartin/ahub/badges/gpa.svg)](https://codeclimate.com/github/abelmartin/ahub)
 
 ## Warning :warning:
 
