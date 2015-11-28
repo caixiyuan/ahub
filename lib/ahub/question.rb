@@ -22,7 +22,7 @@ module Ahub
     end
 
     def self.find_by_title(title)
-      find_all_by_text(query: title).find{|question| question.title == title}
+      find_all_by_text(query: title).find{|question| question.title.strip.downcase == title.downcase.strip}
     end
 
     attr_accessor :title, :body, :body_as_html
