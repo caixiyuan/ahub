@@ -1,5 +1,5 @@
 # Ahub
-A gem to interact with the [Answer Hub API](docs.answerhubapiv2.apiary.io)
+A gem to interact with the [Answer Hub API](http://docs.answerhubapiv2.apiary.io)
 
 [![Gem Version](https://badge.fury.io/rb/ahub.svg)](https://badge.fury.io/rb/ahub)
 [![Build Status](https://travis-ci.org/abelmartin/ahub.svg?branch=master)](https://travis-ci.org/abelmartin/ahub)
