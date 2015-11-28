@@ -34,7 +34,7 @@ module Ahub
     end
 
     def find_answers_by_username(username)
-      fetched_answers.select{|answer| answer.author.username == username}
+      fetched_answers.select{|answer| answer.author.username.downcase.strip == username.downcase.strip}
     end
 
     def fetched_answers
