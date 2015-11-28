@@ -23,6 +23,16 @@ describe Ahub::Question do
     NodeFactory.generate_multi_question_attributes(3)
   end
 
+  describe 'includes' do
+    it 'should be an APIResource class' do
+      expect(Ahub::Question.ancestors).to include(Ahub::APIResource)
+    end
+
+    it 'should be a Deletable class' do
+      expect(Ahub::Question.ancestors).to include(Ahub::Deletable)
+    end
+  end
+
   describe '::create' do
     it 'calls ::create_resource' do
       response = {test:true}
@@ -53,7 +63,7 @@ describe Ahub::Question do
           klass: Ahub::Question
         ).and_return(multi_response)
 
-      Ahub::Question.find_all_by_text(query: '  Test Title  ')
+      Ahub::Question.find_all_by_text(query: '  Test Title?  ')
     end
   end
 

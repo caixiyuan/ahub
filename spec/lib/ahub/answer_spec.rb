@@ -11,6 +11,16 @@ describe Ahub::Answer do
     })
   end
 
+  describe 'includes' do
+    it 'should be an APIResource class' do
+      expect(Ahub::Question.ancestors).to include(Ahub::APIResource)
+    end
+
+    it 'should be a Deletable class' do
+      expect(Ahub::Question.ancestors).to include(Ahub::Deletable)
+    end
+  end
+
   describe '#initialize' do
     it 'is an Ahub::APIResource' do
       expect(answer).to be_a(Ahub::APIResource)
