@@ -17,7 +17,7 @@ module Ahub
       move_url = "#{self.class.base_url}/#{id}/add.json?users=#{user_id}"
       RestClient.put("#{move_url}", self.class.admin_headers)
       true
-    rescue => e
+    rescue
       false
     end
   end
