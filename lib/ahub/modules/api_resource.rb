@@ -8,12 +8,10 @@ module Ahub
 
     attr_reader :attributes
 
-    def update
-      raise NotImplementedError
-    end
-
     def initialize(attrs)
-      @attributes = attrs
+      @attributes ||= {}
+      attrs.each_pair { |k,v| @attributes[k.to_sym] = v }
+
       attrs.each_pair do |k,v|
         attribute_name = k.to_s.underscore
 
@@ -27,6 +25,21 @@ module Ahub
           instance_variable_get("@#{__method__}")
         end
       end
+    end
+
+    def json_url
+      "#{self.class.base_url}/#{id}.json" if id
+    end
+
+    def update
+      raise NotImplementedError
+    end
+
+    def update_attribute(attribute, value)
+      payload = {}
+      payload[attribute] = value
+
+      self.class.update_resource(resource: self, payload: payload)
     end
 
     class_methods do
@@ -79,6 +92,18 @@ module Ahub
         response = JSON.parse(RestClient.get(url, headers), symbolize_names:true)
         response[:list].map do |node|
           klass.new(node)
+        end
+      end
+
+      def update_resource(resource:, payload:)
+        raise Exception.new('#id is required for an update') unless resource.id
+        begin
+          response = RestClient.put(resource.json_url, payload.to_json, admin_headers)
+          resource.send(:initialize, JSON.parse(response))
+          payload.each{|k,v| resource.instance_variable_set("@#{k}", v) }
+          true
+        rescue Exception => e
+          false
         end
       end
 

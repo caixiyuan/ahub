@@ -107,18 +107,6 @@ describe Ahub::Question do
     end
   end
 
-  describe '#json_url' do
-    it 'returns expected json url if the id exists' do
-      question = Ahub::Question.new({id:123})
-      expect(question.json_url).to eq("#{Ahub::Question.base_url}/123.json")
-    end
-
-    it 'returns expected json url if the id exists' do
-      question = Ahub::Question.new({id:nil})
-      expect(question.json_url).to be_nil
-    end
-  end
-
   describe '#to_s' do
     it 'returns #html_url' do
       question = Ahub::Question.new({id:1})

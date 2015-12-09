@@ -140,6 +140,7 @@ describe Ahub::APIResource do
   describe 'instance methdods' do
     let(:attribute_hash){ {id: 789, aCamelCasedKEY:1, bbb:2, ccc:3, predefined: 'new' }}
     let(:tester){ Ahub::APIResourceTester.new(attribute_hash) }
+    let(:tester_without_id){ Ahub::APIResourceTester.new({id: nil, baz: 'blur'}) }
     describe '#initialize' do
       it 'transforms any key in the attributes hash into a property on the instance' do
         expect(tester.id).to be(789)
@@ -173,7 +174,6 @@ describe Ahub::APIResource do
           expect(tester.instance_variable_get('@predefined')).to eq('original ivar')
         end
       end
-
     end
 
     describe '#update' do
@@ -182,9 +182,68 @@ describe Ahub::APIResource do
       end
     end
 
-    describe '#destroy' do
-      it 'raises NotImplementedError' do
-        expect{tester.update}.to raise_error(NotImplementedError)
+    describe '#json_url' do
+      it 'returns expected json url if the id exists' do
+        expect(tester.json_url).to eq("#{Ahub::APIResourceTester.base_url}/789.json")
+      end
+
+      it 'returns nil if the id is missing' do
+        expect(tester_without_id.json_url).to be_nil
+      end
+    end
+
+    describe '#update_attribute' do
+      it 'returns an error if #id is missing' do
+        expect{tester_without_id.update_attribute(:foo, true)}.to raise_error('#id is required for an update')
+      end
+
+      it 'calls expected URL with correct payload when an id exists' do
+        expect(RestClient).to receive(:put).with(tester.json_url, {foo:true}.to_json, Ahub::APIResourceTester.admin_headers)
+        tester.update_attribute(:foo, true)
+      end
+
+      context 'when call should be made' do
+        context 'when an error occurs' do
+          before do
+            allow(RestClient).to receive(:put).and_raise('boom')
+          end
+
+          it 'returns false if an error occurs' do
+            expect(tester.update_attribute(:foo, true)).to be(false)
+          end
+
+          it 'does not update current object' do
+            tester.update_attribute(:bbb, 'updated')
+            expect(tester.bbb).to eq(2)
+          end
+        end
+
+        context 'when call succeeds' do
+          before do
+            allow(RestClient).to receive(:put).and_return({foo: 'new'}.merge(attribute_hash).to_json)
+          end
+
+          it 'returns true if the call works occurs' do
+            expect(tester.update_attribute(:foo, 'new')).to be(true)
+          end
+
+          it 'adds getters & setters for new attribute' do
+            tester.update_attribute(:foo, 'new')
+            expect(tester.foo).to eq('new')
+          end
+
+          it 'updates the ivar accordingly if the attribute already existed' do
+            allow(RestClient).to receive(:put).and_return({bbb: 'updated'}.to_json)
+            tester.update_attribute(:bbb, 'updated')
+            expect(tester.bbb).to eq('updated')
+          end
+
+          it 'updates #attributes' do
+            allow(RestClient).to receive(:put).and_return(attribute_hash.merge({bbb: 'updated'}).to_json)
+            tester.update_attribute(:bbb, 'updated')
+            expect(tester.attributes).to eq(attribute_hash.merge({bbb: 'updated'}))
+          end
+        end
       end
     end
   end

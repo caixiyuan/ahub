@@ -49,10 +49,6 @@ module Ahub
       "#{Ahub::DOMAIN}/questions/#{id}/#{slug}.html" if id
     end
 
-    def json_url
-      "#{self.class.base_url}/#{id}.json" if id
-    end
-
     def to_s
       html_url
     end
