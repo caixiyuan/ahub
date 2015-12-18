@@ -42,6 +42,10 @@ module Ahub
       self.class.update_resource(resource: self, payload: payload)
     end
 
+    def admin_headers
+      self.class.admin_headers
+    end
+
     class_methods do
       def headers(username:, password:)
         encoded = "Basic #{::Base64.strict_encode64("#{username}:#{password}")}"

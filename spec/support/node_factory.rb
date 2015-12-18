@@ -59,7 +59,7 @@ class NodeFactory
     })
   end
 
-  def self.generate_multi_question_attributes(question_count=3)
+  def self.generate_multi_node_attributes(count:3, node_type:'question')
     {
       name: "",
       sort: "active",
@@ -67,10 +67,14 @@ class NodeFactory
       pageSize: 15,
       pageCount: 1,
       listCount: 1,
-      totalCount: 1,
+      totalCount: count,
       sorts: ["active", "newest", "hottest"],
-      list: (1..question_count).map{|q| generate_question_attributes}
+      list: (1..count).map{|q| generate_question_attributes}
     }
+  end
+
+  def self.generate_multi_question_attributes(question_count=3)
+    generate_multi_node_attributes(count: question_count)
   end
 
   private

@@ -141,6 +141,7 @@ describe Ahub::APIResource do
     let(:attribute_hash){ {id: 789, aCamelCasedKEY:1, bbb:2, ccc:3, predefined: 'new' }}
     let(:tester){ Ahub::APIResourceTester.new(attribute_hash) }
     let(:tester_without_id){ Ahub::APIResourceTester.new({id: nil, baz: 'blur'}) }
+
     describe '#initialize' do
       it 'transforms any key in the attributes hash into a property on the instance' do
         expect(tester.id).to be(789)
@@ -179,6 +180,13 @@ describe Ahub::APIResource do
     describe '#update' do
       it 'raises NotImplementedError' do
         expect{tester.update}.to raise_error(NotImplementedError)
+      end
+    end
+
+    describe '#admin_headers' do
+      it 'calls the ::admin_headers' do
+        expect(Ahub::APIResourceTester).to receive(:admin_headers).and_return(:admin_headers)
+        expect(tester.admin_headers).to be(:admin_headers)
       end
     end
 
