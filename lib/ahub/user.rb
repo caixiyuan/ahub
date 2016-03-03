@@ -37,5 +37,14 @@ module Ahub
 
       @answers
     end
+
+    def actions
+    end
+
+    def follows
+    end
+
+    def followers
+    end
   end
 end

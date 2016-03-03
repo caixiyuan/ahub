@@ -52,5 +52,8 @@ module Ahub
     def to_s
       html_url
     end
+
+    def followers
+    end
   end
 end

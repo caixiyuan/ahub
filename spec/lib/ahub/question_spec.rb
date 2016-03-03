@@ -130,4 +130,8 @@ describe Ahub::Question do
       expect(question_1.find_answers_by_username('no one')).to eq([])
     end
   end
+
+  describe '#followers' do
+    it 'works'
+  end
 end

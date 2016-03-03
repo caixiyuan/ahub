@@ -61,4 +61,16 @@ describe Ahub::User do
       user.answers
     end
   end
+
+  describe '#actions' do
+    it 'works'
+  end
+
+  describe '#follows' do
+    it 'works'
+  end
+
+  describe '#followers' do
+    it 'works'
+  end
 end
