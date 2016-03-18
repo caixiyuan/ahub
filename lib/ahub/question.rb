@@ -1,6 +1,6 @@
 module Ahub
   class Question
-    include Ahub::APIResource
+    include Ahub::Followable
     include Ahub::Deletable
 
     def self.create(title:, body:, topics:, space_id: nil, username:, password:)

@@ -1,5 +1,6 @@
 module Ahub
-  class Topic
+  class Comment
     include Ahub::Followable
+    include Ahub::Deletable
   end
 end

@@ -33,6 +33,16 @@ describe Ahub::Question do
     end
   end
 
+  describe '#initialize' do
+    it 'is an Ahub::APIResource' do
+      expect(question_1).to be_a(Ahub::APIResource)
+    end
+
+    it 'is an Ahub::Followable' do
+      expect(question_1).to be_a(Ahub::Followable)
+    end
+  end
+
   describe '::create' do
     it 'calls ::create_resource' do
       response = {test:true}
