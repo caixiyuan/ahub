@@ -26,6 +26,10 @@ describe Ahub::Answer do
       expect(answer).to be_a(Ahub::APIResource)
     end
 
+    it 'is an Ahub::Followable' do
+      expect(answer).to be_a(Ahub::Followable)
+    end
+
     it 'has expected attributes' do
       expect(answer.id).to eq(123)
       expect(answer.body).to eq('test')

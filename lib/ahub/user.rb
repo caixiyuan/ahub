@@ -1,6 +1,6 @@
 module Ahub
   class User
-    include Ahub::APIResource
+    include Ahub::Followable
 
     def self.create(username:, email:, password:)
       url = "#{base_url}.json"
