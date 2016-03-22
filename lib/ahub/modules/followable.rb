@@ -6,9 +6,11 @@ module Ahub
       end
     end
     
-    def followers(page = 0, page_size = 50)
+    def followers(page = 0, page_size = 20)
       return [] if id.nil?
-      self.class.get_resource(url: "#{self.class.base_url}/#{id}/followers.json?page=#{page}&pageSize=#{page_size}", headers: admin_headers, klass: Ahub::User)
+      class_name = self.class.name.gsub(/Ahub::/, '').downcase
+      class_name = 'node' if ['question', 'answer', 'comment'].include?(class_name)
+      self.class.get_resources(url: "#{Ahub::DOMAIN}/services/v2/#{class_name}/#{id}/followers.json?page=#{page}&pageSize=#{page_size}", headers: admin_headers, klass: Ahub::User)
     end
   end
 end
