@@ -1,5 +1,5 @@
 module Ahub
   class Space
-    include Ahub::APIResource
+    include Ahub::Followable
   end
 end

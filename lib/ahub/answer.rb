@@ -1,6 +1,6 @@
 module Ahub
   class Answer
-    include Ahub::APIResource
+    include Ahub::Followable
     include Ahub::Deletable
 
     def self.create(question_id:, body:, username:, password:)

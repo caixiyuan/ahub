@@ -19,6 +19,16 @@ describe Ahub::User do
     end
   end
 
+  describe '#initialize' do
+    it 'is an Ahub::APIResource' do
+      expect(user).to be_a(Ahub::APIResource)
+    end
+
+    it 'is an Ahub::Followable' do
+      expect(user).to be_a(Ahub::Followable)
+    end
+  end
+
   describe '::find_by_username' do
     before do
       allow(RestClient).to receive(:get).with(
